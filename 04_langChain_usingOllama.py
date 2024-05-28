@@ -1,12 +1,12 @@
 from langchain_community.llms import Ollama
-import langsmith
+from langchain_community.chat_models.ollama import ChatOllama
+import os
+from langsmith import traceable
 
-langsmith_client=langsmith.Client(
-    api_key='ls_0a4028d0b8844641b9c9416a1b026eb7',
-    api_url='https://api.smith.langchain.com'    
-)
+os.environ["LANGCHAIN_TRACING_V2"] = "true"
 
+#llm = Ollama(model="orca-mini")
+llm = ChatOllama(model="phi3")
+print(llm.invoke("bye"))
 
-llm = Ollama(model="orca-mini")
-print(llm.invoke("hi my name is jon.  what is my name?"))
 

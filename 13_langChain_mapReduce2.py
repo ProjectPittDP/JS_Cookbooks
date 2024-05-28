@@ -8,9 +8,6 @@ import weaviate
 from langchain_community.vectorstores.weaviate import Weaviate
 from langchain_community.embeddings.ollama import OllamaEmbeddings
 
-os.environ['LANGCHAIN_TRACING_V2'] = 'true'
-os.environ['LANGCHAIN_ENDPOINT'] = 'https://api.smith.langchain.com'
-os.environ['LANGCHAIN_API_KEY'] = "ls__0a4028d0b8844641b9c9416a1b026eb7"
 
 loader = TextLoader("/home/jonot480/Documents/iamjon.txt")
 documents = loader.load()

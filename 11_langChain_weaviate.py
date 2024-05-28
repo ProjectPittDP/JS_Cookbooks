@@ -15,9 +15,6 @@ response = collTest.query.fetch_objects()
 for o in response.objects:
    print(o.properties["text"])
 
-
-
-
 loader = TextLoader("/home/jonot480/Documents/paulgraham.txt")
 documents = loader.load()
 text_splitter = CharacterTextSplitter(chunk_size=100,chunk_overlap=0)
