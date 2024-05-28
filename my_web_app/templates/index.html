@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LLaMA Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> 
+</head>
+<body>
+    <h1>LLaMA Search</h1>
+    <form action="/search" method="post">
+        <input type="text" name="query" placeholder="Search query">
+        <select name="search_type">
+          <option value="keyword">Keyword Search</option>
+          <option value="vector">Vector Search</option>
+          <option value="summarization">Summarization Search</option>
+        </select>
+        <input type="submit" value="Search">
+        <div class="loader" style="display: none;"></div>
+      </form>
+</body>
+</html>
