@@ -21,7 +21,8 @@ class Pipeline:
     async def on_startup(self):       
 
         #from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
-        from llama_index.core import SimpleDirectoryReader                                
+        #from llama_index.core import SimpleDirectoryReader       
+        from langchain_community.document_loaders import DirectoryLoader                         
         from langchain_community.vectorstores.weaviate import Weaviate
         from langchain_community.embeddings.ollama import OllamaEmbeddings
         import weaviate
@@ -55,7 +56,7 @@ class Pipeline:
 
         )
         log.info("COLLECTION CREATED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        self.documents = SimpleDirectoryReader("./data/uploads").load_data()
+        self.documents = DirectoryLoader("./data/uploads").load()
         # self.index = WeaviateVectorStore.from_documents(
         #     self.client,
         #     self.documents
