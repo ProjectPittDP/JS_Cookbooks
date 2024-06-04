@@ -86,10 +86,10 @@ class Pipeline:
         # This is where you can add your custom RAG pipeline.
         # Typically, you would retrieve relevant information from your knowledge base and synthesize it to generate a response.
 
-        print(messages)
-        print(user_message)
+        #print(messages)
+        #print(user_message)
 
         #query_engine = self.index.as_query_engine(streaming=True)
-        response = self.index.invoke(user_message)
-
-        return response.response_gen
+        #response = self.index.invoke(user_message)
+        strin = "hi im jon"
+        return strin #response.response_gen
