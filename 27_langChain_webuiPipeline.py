@@ -20,53 +20,55 @@ class Pipeline:
         self.weaviate_client = None
     async def on_startup(self):       
 
-        #from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
-        from llama_index.core import SimpleDirectoryReader                                
-        from langchain_community.vectorstores.weaviate import Weaviate
-        from langchain_community.embeddings.ollama import OllamaEmbeddings
-        import weaviate
+        # #from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
+        # from llama_index.core import SimpleDirectoryReader                                
+        # from langchain_community.vectorstores.weaviate import Weaviate
+        # from langchain_community.embeddings.ollama import OllamaEmbeddings
+        # import weaviate
 
-        self.client = weaviate.Client("http://localhost:8081")
-        self.weaviate_client = weaviate.connect_to_local("localhost","8081")#v4
-        index_name="Pipeline_test"        
+        # self.client = weaviate.Client("http://localhost:8081")
+        # self.weaviate_client = weaviate.connect_to_local("localhost","8081")#v4
+        # index_name="Pipeline_test"        
 
-        from weaviate.classes.config import Configure
-        from weaviate.classes.config import Property, DataType
+        # from weaviate.classes.config import Configure
+        # from weaviate.classes.config import Property, DataType
 
-        self.weaviate_client.collections.create(
-            index_name,
-            #see notes above re: the docker modules that need to be enabled for text2vec* to work correctly -e ENABLE_MODULES=text2vec-ollama
-            vectorizer_config=Configure.Vectorizer.text2vec_ollama( 
-                model="nomic-embed-text",    
-                api_endpoint="http://host.docker.internal:11434",
-            ),
-            # generative_config=Configure.Generative.ollama(
-            #     api_endpoint = "http://host.docker.internal:11434",
-            #     model="jonphi"
-            # ),
+        # self.weaviate_client.collections.create(
+        #     index_name,
+        #     #see notes above re: the docker modules that need to be enabled for text2vec* to work correctly -e ENABLE_MODULES=text2vec-ollama
+        #     vectorizer_config=Configure.Vectorizer.text2vec_ollama( 
+        #         model="nomic-embed-text",    
+        #         api_endpoint="http://host.docker.internal:11434",
+        #     ),
+        #     # generative_config=Configure.Generative.ollama(
+        #     #     api_endpoint = "http://host.docker.internal:11434",
+        #     #     model="jonphi"
+        #     # ),
 
-            # properties=[
-            #     Property(name="page_content", data_type=DataType.TEXT),
-            #     Property(name="source", data_type=DataType.INT),
-            # ]
+        #     # properties=[
+        #     #     Property(name="page_content", data_type=DataType.TEXT),
+        #     #     Property(name="source", data_type=DataType.INT),
+        #     # ]
 
-        )
-
-        self.documents = SimpleDirectoryReader("./data/uploads").load_data()
-        # self.index = WeaviateVectorStore.from_documents(
-        #     self.client,
-        #     self.documents
         # )
 
+        # self.documents = SimpleDirectoryReader("./data/uploads").load_data()
+        # # self.index = WeaviateVectorStore.from_documents(
+        # #     self.client,
+        # #     self.documents
+        # # )
 
-        self.index = Weaviate.from_documents(
-            docs=self.documents, 
-            embedding=OllamaEmbeddings(model='nomic-embed-text'),
-            client=self.client,    
-            index_name=index_name,
-            #prefer_grpc=True, 
-        ) 
-        
+
+        # self.index = Weaviate.from_documents(
+        #     docs=self.documents, 
+        #     embedding=OllamaEmbeddings(model='nomic-embed-text'),
+        #     client=self.client,    
+        #     index_name=index_name,
+        #     #prefer_grpc=True, 
+        # ) 
+        import logging
+        log = logging.getLogger(__name__)
+        log.info("hi guys")
 
         # This function is called when the server is started.
         pass
@@ -86,5 +88,5 @@ class Pipeline:
 
         query_engine = self.index.as_query_engine(streaming=True)
         response = query_engine.query(user_message)
-
+        
         return response.response_gen
