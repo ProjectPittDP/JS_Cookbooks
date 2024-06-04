@@ -33,7 +33,7 @@ class Pipeline:
         self.client = weaviate.Client("http://localhost:8081")
         self.weaviate_client = weaviate.connect_to_local("localhost","8081")#v4
         index_name="Pipeline_test"        
-        log.info("CONNECTED TO WEAVIATE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        log.info("CONNECTED TO WEAVIATE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         from weaviate.classes.config import Configure
         from weaviate.classes.config import Property, DataType
 
